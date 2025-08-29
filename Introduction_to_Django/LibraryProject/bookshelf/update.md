@@ -1,4 +1,4 @@
-p.title = "Nineteen 
+book.title = "Nineteen 
 Eighty-Four"
 >>> p.title
 'Nineteen Eighty-Four'
