@@ -1,2 +1,3 @@
 .venv/
 LibraryProject/db.sqlite3
+LibraryProject/LibraryProject/__pycache__/

@@ -1,1 +1,1 @@
-some content
+My first readme file for a django project
