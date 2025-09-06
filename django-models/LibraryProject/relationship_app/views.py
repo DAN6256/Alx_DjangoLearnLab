@@ -8,7 +8,7 @@ def list_books(request):
     """
     Renders a list of all books and their authors.
     """
-    books = Book.objects.select_related('author').all()
+    books = Book.objects.all()
     return render(request, 'relationship_app/list_books.html', {'books': books})
 
 # Class-based view to show details of a specific library
