@@ -1,6 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.detail import DetailView
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Library
 from .models import Book
 
@@ -25,3 +29,41 @@ class LibraryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['books'] = self.object.books.select_related('author').all()
         return context
+    
+
+
+def user_login(request):
+    """
+    Handles user login using Django's AuthenticationForm.
+    """
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('book-list')  # Redirect to a meaningful page
+    else:
+        form = AuthenticationForm()
+    return render(request, 'relationship_app/login.html', {'form': form})
+
+def user_logout(request):
+    """
+    Logs out the current user and renders a confirmation page.
+    """
+    logout(request)
+    return render(request, 'relationship_app/logout.html')
+
+def register(request):
+    """
+    Handles user registration using Django's UserCreationForm.
+    """
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('book-list')
+    else:
+        form = UserCreationForm()
+    return render(request, 'relationship_app/register.html', {'form': form})
+
