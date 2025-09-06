@@ -4,7 +4,8 @@ from .models import Book, Library, Librarian, Author
 
 # Books by author name
 author_name = "Some author"
-books_by_author_name = Book.objects.filter(name=author_name)
+author = Author.filter.get(name=author_name)
+books_by_author_name = Book.objects.filter(author =author)
 
 
 # Books in a specific library (get a Library instance first)
