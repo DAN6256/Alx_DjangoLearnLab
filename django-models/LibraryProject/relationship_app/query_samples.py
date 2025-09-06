@@ -1,10 +1,10 @@
 from .models import Book, Library, Librarian, Author
 
-# All books
-#books = Book.objects.all()
+
 
 # Books by author name
-books_by_author_name = Book.objects.filter(name="Some author")
+author_name = "Some author"
+books_by_author_name = Book.objects.filter(name=author_name)
 
 
 # Books in a specific library (get a Library instance first)
