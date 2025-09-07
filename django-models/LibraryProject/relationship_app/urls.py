@@ -3,6 +3,7 @@ from .views import CustomLoginView, CustomLogoutView, register, list_books, Libr
 from .admin_view import admin_view
 from .librarian_view import librarian_view
 from .member_view import member_view
+from .views import list_books
 urlpatterns = [
     path('books/', list_books, name='book-list'),
     path('library/<int:pk>/', LibraryDetailView.as_view(), name='library-detail'),
