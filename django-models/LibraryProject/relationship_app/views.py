@@ -96,4 +96,42 @@ class CustomLogoutView(LogoutView):
     """
     template_name = 'relationship_app/logout.html'
 
+from django.contrib.auth.decorators import permission_required
+from .forms import BookForm  # Make sure you have a ModelForm for Book
+
+@permission_required('relationship_app.can_add_book')
+def add_book(request):
+    """
+    Allows authorized users to add a new book.
+    """
+    form = BookForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('book-list')
+    return render(request, 'relationship_app/add_book.html', {'form': form})
+
+@permission_required('relationship_app.can_change_book')
+def edit_book(request, book_id):
+    """
+    Allows authorized users to edit an existing book.
+    """
+    book = get_object_or_404(Book, id=book_id)
+    form = BookForm(request.POST or None, instance=book)
+    if form.is_valid():
+        form.save()
+        return redirect('book-list')
+    return render(request, 'relationship_app/edit_book.html', {'form': form, 'book': book})
+
+@permission_required('relationship_app.can_delete_book')
+def delete_book(request, book_id):
+    """
+    Allows authorized users to delete a book.
+    """
+    book = get_object_or_404(Book, id=book_id)
+    if request.method == 'POST':
+        book.delete()
+        return redirect('book-list')
+    return render(request, 'relationship_app/delete_book.html', {'book': book})
+
+
 
