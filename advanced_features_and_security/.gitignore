@@ -1,0 +1,4 @@
+.venv/
+LibraryProject/db.sqlite3
+LibraryProject/LibraryProject/__pycache__/
+LibraryProject/bookshelf/__pycache__/
