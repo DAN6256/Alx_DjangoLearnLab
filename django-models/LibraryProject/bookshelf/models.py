@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.contrib.auth import get_user_model
+
 
 class CustomUserManager(BaseUserManager):
     """
@@ -79,10 +79,6 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField()
-    
-    # Update foreign key to use the custom user model
-    # If you had any user-related fields, update them like this:
-    # owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='books')
     
     def __str__(self):
         return f"{self.title} by {self.author}"
